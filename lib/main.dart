@@ -1,8 +1,25 @@
+import 'package:comp5450_exercise1/data/repositories/product_detail_repository.dart';
+import 'package:comp5450_exercise1/data/repositories/product_list_repository.dart';
+import 'package:comp5450_exercise1/data/repositories/shopping_cart_repository.dart';
+import 'package:comp5450_exercise1/data/services/product_detail_service.dart';
+import 'package:comp5450_exercise1/data/services/product_list_service.dart';
+import 'package:comp5450_exercise1/data/services/shopping_cart_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   // TODO Add multi provider for dependency injection
-  runApp(const MyApp());
+  runApp(MultiProvider(
+      providers: [
+        Provider.value(value: ProductDetailService()),
+        Provider.value(value: ProductListService()),
+        Provider.value(value: ShoppingCartService()), 
+        Provider(create: (context) => ShoppingCartRepository(shoppingCartService: context.read())),
+        Provider(create: (context) => ProductDetailRepository(productDetailService: context.read())),
+        Provider(create: (context) => ProductListRepository(productListService: context.read()))
+      ],
+      child: MyApp()
+  ));
 }
 
 class MyApp extends StatelessWidget {
