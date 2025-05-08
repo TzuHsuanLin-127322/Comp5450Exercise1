@@ -1,4 +1,13 @@
+import 'package:comp5450_exercise1/data/models/product_detail_model.dart';
+import 'package:comp5450_exercise1/data/services/product_detail_service.dart';
+
 class ProductDetailRepository {
   // TODO: Complete Product Detail Repository
-  // Inject Producte Detail Service
+  ProductDetailRepository({required ProductDetailService productDetailService}): _productDetailService = productDetailService;
+
+  final ProductDetailService _productDetailService;
+
+  ProductDetailModel? productDetailModel;
+
+
 }
