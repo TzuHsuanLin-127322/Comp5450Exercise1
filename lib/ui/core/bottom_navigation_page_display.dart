@@ -1,41 +1,31 @@
 import 'package:comp5450_exercise1/ui/core/bottom_navigation_page_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class BottomNavigationPageDisplayScaffold extends StatefulWidget {
-  const BottomNavigationPageDisplayScaffold({super.key, required BottomNavigationPageViewModel bottomNavigationPageDisplayViewModel})
-    : _bottomNavigationPageDisplayViewModel = bottomNavigationPageDisplayViewModel;
+class BottomNavigationPageDisplayScaffold extends StatelessWidget {
 
-  final _bottomNavigationPageDisplayViewModel;
-  
-  @override
-  State<BottomNavigationPageDisplayScaffold> createState() => _BottomNavigationPageDisplayScaffoldState();
-}
-
-class _BottomNavigationPageDisplayScaffoldState extends State<BottomNavigationPageDisplayScaffold>{
-  int _selectedTab = 0;
-
+  const BottomNavigationPageDisplayScaffold({super.key});
+    
   @override
   Widget build(BuildContext context) {
+    final BottomNavigationPageViewModel viewModel = context.watch();
     return(Scaffold(
-      bottomNavigationBar: BottomNavigationBar(items: [
-        BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Store'),
-        BottomNavigationBarItem(
-          icon: Badge(
-            label: null,
-            isLabelVisible: false,
-            child: Icon(Icons.shopping_cart),
+      bottomNavigationBar: BottomNavigationBar(
+        items: viewModel.bottomNavBarItems.map((item) {
+          return (BottomNavigationBarItem(
+            icon: Badge(
+              label: Text(item.badgeLabel),
+              isLabelVisible: item.displayBadgeLabel,
+              child: Icon(item.icon)
             ),
-          label: 'Cart'
-        ),
-      ],
-      currentIndex: _selectedTab,
-      onTap: _onItemTap,),
+            label: item.label
+          ));
+        }).toList(),
+        currentIndex: viewModel.selectedTab,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        onTap:viewModel.onTabSelected
+      ) 
     ));
   }
-
-  void _onItemTap(int index) {
-    setState(() => _selectedTab = index);
-  }
-
 }
-
