@@ -1,4 +1,4 @@
-import 'package:comp5450_exercise1/data/models/product_detail_model.dart';
+import 'package:comp5450_exercise1/data/models/product_model.dart';
 import 'package:comp5450_exercise1/data/repositories/product_detail_repository.dart';
 
 class ProductDetailViewModel{
@@ -7,7 +7,7 @@ class ProductDetailViewModel{
   ProductDetailViewModel({required ProductDetailRepository productDetailRepository}): _productDetailRepository = productDetailRepository;
   final ProductDetailRepository _productDetailRepository;
   
-  ProductDetailModel? _productDetailData;
+  ProductModel? _productDetailData;
 
   /**
    * Function to add
