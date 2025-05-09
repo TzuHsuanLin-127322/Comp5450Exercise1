@@ -4,8 +4,8 @@ import 'package:comp5450_exercise1/data/repositories/product_detail_repository.d
 class ProductDetailViewModel{
   // TODO: Complete Product detail display model
   // Inject repository
-  ProductDetailViewModel({required ProductDetailRepository productDetailRepository}): _productDetailRepository = ProductDetailRepository;
-  final _productDetailRepository;
+  ProductDetailViewModel({required ProductDetailRepository productDetailRepository}): _productDetailRepository = productDetailRepository;
+  final ProductDetailRepository _productDetailRepository;
   
   ProductDetailModel? _productDetailData;
 

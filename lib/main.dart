@@ -4,11 +4,12 @@ import 'package:comp5450_exercise1/data/repositories/shopping_cart_repository.da
 import 'package:comp5450_exercise1/data/services/product_detail_service.dart';
 import 'package:comp5450_exercise1/data/services/product_list_service.dart';
 import 'package:comp5450_exercise1/data/services/shopping_cart_service.dart';
+import 'package:comp5450_exercise1/ui/core/bottom_navigation_page_display.dart';
+import 'package:comp5450_exercise1/ui/core/bottom_navigation_page_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  // TODO Add multi provider for dependency injection
   runApp(MultiProvider(
       providers: [
         Provider.value(value: ProductDetailService()),
@@ -16,7 +17,8 @@ void main() {
         Provider.value(value: ShoppingCartService()), 
         Provider(create: (context) => ShoppingCartRepository(shoppingCartService: context.read())),
         Provider(create: (context) => ProductDetailRepository(productDetailService: context.read())),
-        Provider(create: (context) => ProductListRepository(productListService: context.read()))
+        Provider(create: (context) => ProductListRepository(productListService: context.read())),
+        ChangeNotifierProvider(create: (context) => BottomNavigationPageViewModel(shoppingCartRepository: context.read()))
       ],
       child: MyApp()
   ));
@@ -48,7 +50,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: BottomNavigationPageDisplayScaffold(bottomNavigationPageDisplayViewModel: context.read()),
     );
   }
 }
