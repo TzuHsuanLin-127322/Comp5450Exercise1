@@ -20,6 +20,14 @@ class ProductListViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
+  void onProductAddToCartClick(int productNumber) {
+    // Adds product to cart, display snackbar depending on result
+  }
+
+  void onProductClick(int productNumber) {
+    // Navigate 
+  }
+
   List<ProductModel> get productList => _productList;
   
 

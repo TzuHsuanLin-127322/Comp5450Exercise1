@@ -1,4 +1,6 @@
 import 'package:comp5450_exercise1/ui/core/product_card_vertical.dart';
+import 'package:comp5450_exercise1/ui/productDetail/product_detail_display.dart';
+import 'package:comp5450_exercise1/ui/productDetail/product_detail_view_model.dart';
 import 'package:comp5450_exercise1/ui/productList/product_list_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +36,7 @@ class ProductListDisplay extends StatelessWidget{
       children: viewModel.productList.map((item) {
         return (
           GestureDetector(
-            onTap: () => print('Card click'),
+            onTap: () => _onProductClick(context, item.id),
             child: Card(
               elevation: 3,
               color: Colors.white,
@@ -60,8 +62,20 @@ class ProductListDisplay extends StatelessWidget{
 
   int _getCrossAxisCount(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
-    int cardCount = size.width ~/ 400;
+    int cardCount = size.width ~/ 300;
     return cardCount < 1 ? 1 : cardCount;
   }
 
+  void _onProductClick(BuildContext context, int productId){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => ChangeNotifierProvider(
+        create: (_) => ProductDetailViewModel(
+          productDetailRepository: context.read(),
+          productId: productId
+        ),
+        child: ProductDetailDisplay()
+      ))
+    );
+  }
 }

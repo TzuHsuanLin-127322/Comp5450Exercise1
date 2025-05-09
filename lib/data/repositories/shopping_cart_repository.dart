@@ -8,5 +8,5 @@ class ShoppingCartRepository{
   ShoppingCartRepository({required ShoppingCartService shoppingCartService}): _shoppingCartService = shoppingCartService;
   final ShoppingCartService _shoppingCartService;
   final ValueNotifier<int> cartCount = ValueNotifier(0);
-  ShoppingCartModel? shoppingCartModel;
+  ShoppingCartModel? shoppingCartModel;  
 }
