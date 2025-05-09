@@ -1,12 +1,26 @@
-import 'package:comp5450_exercise1/data/models/product_list_model.dart';
+import 'package:comp5450_exercise1/data/models/product_model.dart';
 import 'package:comp5450_exercise1/data/repositories/product_list_repository.dart';
+import 'package:flutter/material.dart';
 
-class ProductListViewModel {
+class ProductListViewModel extends ChangeNotifier{
   // TODO: Complete Product List View Model
   // Inject repository
-  ProductListViewModel({required ProductListRepository productListRepository}): _productListRepository = productListRepository;
+  ProductListViewModel({required ProductListRepository productListRepository})
+    : _productListRepository = productListRepository {
+      initializeProductList();
+    }
   final ProductListRepository _productListRepository;
-  ProductListModel? _productListModel;
+
+  final List<ProductModel> _productList = [];
+
+  void initializeProductList() {
+    final products = _productListRepository.fetchProductList();
+    _productList.clear();
+    _productList.addAll(products);
+    notifyListeners();
+  }
+
+  List<ProductModel> get productList => _productList;
   
 
   /**
