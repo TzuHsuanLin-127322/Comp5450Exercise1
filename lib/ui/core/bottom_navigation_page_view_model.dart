@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class BottomNavigationPageViewModel extends ChangeNotifier{
   late final ShoppingCartRepository _shoppingCartRepository;
+  late final VoidCallback _repositoryCallback;
   late List<BottomNavigationBarItemModel> _navBarItems;
   int _selectedTab = 0;
   int _shoppingCartItemCount = 0;
@@ -10,6 +11,18 @@ class BottomNavigationPageViewModel extends ChangeNotifier{
   BottomNavigationPageViewModel({required ShoppingCartRepository shoppingCartRepository}) {
     _shoppingCartRepository = shoppingCartRepository;
     _buildNavBarItemModels();
+    _repositoryCallback = () => _onCartItemCountChange();
+    _shoppingCartRepository.cartCount.addListener(_repositoryCallback);
+    _onCartItemCountChange();
+  }
+
+  void _onCartItemCountChange(){
+    if (_shoppingCartItemCount == _shoppingCartRepository.cartCount.value){
+      return;
+    }
+    _shoppingCartItemCount = _shoppingCartRepository.cartCount.value;
+    _buildNavBarItemModels();
+    notifyListeners();
   }
 
   void _buildNavBarItemModels() {
@@ -28,6 +41,12 @@ class BottomNavigationPageViewModel extends ChangeNotifier{
   void onTabSelected(int index) {
     _selectedTab = index;
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _shoppingCartRepository.cartCount.removeListener(_repositoryCallback);
+    super.dispose();
   }
   
 
