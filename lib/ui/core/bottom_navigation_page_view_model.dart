@@ -14,18 +14,19 @@ class BottomNavigationPageViewModel extends ChangeNotifier{
 
   void _buildNavBarItemModels() {
     _navBarItems = [
-      BottomNavigationBarItemModel(icon: Icons.store, label: 'Store'),
+      BottomNavigationBarItemModel(icon: Icons.store, label: 'Store', navigationKey: 'store'),
       BottomNavigationBarItemModel(
         icon: Icons.shopping_cart,
         label: 'Cart',
         badgeLabel: _shoppingCartItemCount == 0 ? '' : _shoppingCartItemCount.toString(),
-        displayBadgeLabel: _shoppingCartItemCount != 0)
+        displayBadgeLabel: _shoppingCartItemCount != 0,
+        navigationKey: 'cart'  
+      )
     ];
   }
 
   void onTabSelected(int index) {
     _selectedTab = index;
-    print(_selectedTab);
     notifyListeners();
   }
   
@@ -40,10 +41,12 @@ class BottomNavigationBarItemModel{
   final String label;
   final String badgeLabel;
   final bool displayBadgeLabel;
+  final String navigationKey;
   
   BottomNavigationBarItemModel({
     required this.icon,
     required this.label,
+    required this.navigationKey,
     this.badgeLabel = '',
     this.displayBadgeLabel = false
   });
