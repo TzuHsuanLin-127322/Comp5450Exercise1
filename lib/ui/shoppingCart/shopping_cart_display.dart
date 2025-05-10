@@ -61,12 +61,12 @@ class ShoppingCartDisplay extends StatelessWidget{
                                   Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Text('Qty:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
                                       SizedBox(width: 8),
                                       GestureDetector(
                                         onTap: () => viewModel.onRemoveItemClick(index),
                                         child: Icon(Icons.delete)
                                       ),
+                                      SizedBox(width: 8,),
                                       Container(
                                         padding: EdgeInsetsDirectional.symmetric(horizontal: 8),
                                         decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(20)),
@@ -77,13 +77,14 @@ class ShoppingCartDisplay extends StatelessWidget{
                                               onPressed: () => viewModel.onMinusItemClick(index)
                                             ),
                                             SizedBox(
-                                              width: 40,
+                                              width: 30,
                                               child: Center(child: Text('${item.qty}')),
                                             ),
                                             IconButton(
                                               icon: Icon(Icons.add),
                                               onPressed: () => viewModel.onAddItemClick(index)
-                                            )
+                                            ),
+                                            
                                           ]
                                         ),
                                       ),
@@ -92,7 +93,7 @@ class ShoppingCartDisplay extends StatelessWidget{
                                   SizedBox(height: 16),
                                   Text(
                                     'Subtotal: ${formatMoney(item.subtotalMinor)}',
-                                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20)
+                                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16)
                                   )
                                 ],
                               )
