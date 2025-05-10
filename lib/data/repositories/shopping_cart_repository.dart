@@ -38,11 +38,27 @@ class ShoppingCartRepository{
   }
 
   void changeProductQty(int productNumber, int qty) {
-
+    if (qty == 0) {
+      removeProductFromCart(productNumber);
+      return;
+    }
+    ShoppingCartModel currentCart = shoppingCartContent.value;
+    ShoppingCartModel newCart = ShoppingCartModel(List.from(currentCart.productList), currentCart.totalMinor);
+    ShoppingCartProductModel product = newCart.productList.firstWhere((product) => product.product.id == productNumber);
+    int qtyDelta = qty - product.qty;
+    int priceDelta = qtyDelta * product.product.priceMinor;
+    product.qty += qtyDelta;
+    product.subtotalMinor += priceDelta;
+    newCart.totalMinor += priceDelta;
+    shoppingCartContent.value = newCart;
+    _updateQty();
   }
 
   void removeProductFromCart(int productNumber) {
-
+    List<ShoppingCartProductModel> newProductList = shoppingCartContent.value.productList.where((product) => product.product.id != productNumber).toList();
+    int newTotal = newProductList.fold<int>(0, (total, product) => product.qty * product.product.priceMinor);
+    shoppingCartContent.value = ShoppingCartModel(newProductList, newTotal);
+    _updateQty();
   }
 
   void _updateQty() {
