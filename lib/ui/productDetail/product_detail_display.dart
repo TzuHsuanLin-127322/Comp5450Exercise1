@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 class ProductDetailDisplay extends StatelessWidget{
   // TODO: Complete Product Detail Dispaly
-  // Inject view model
   ProductDetailDisplay({super.key});
 
   /**
@@ -28,10 +27,23 @@ class ProductDetailDisplay extends StatelessWidget{
       );
     }
     return (
-      Column(
-        children: [
-          Text(viewModel.productModel!.productDescription)
-        ],
+      Scaffold(
+        appBar: AppBar(
+          leading: CloseButton(),
+          title: Text("Product Detail")
+        ),
+        bottomSheet: MaterialButton(
+          child: Text('Add to Cart'),
+          onPressed: () => {}
+        ),
+        body: Column(
+          children: [
+            Image(image: AssetImage('assets/images/${viewModel.productModel!.productImagePath}')),
+            Text(viewModel.productModel!.productDisplayName),
+            Text('\$${viewModel.productModel!.priceMinor/100}'),
+            Text(viewModel.productModel!.productDescription)
+          ],
+        )
       )
     );
   }

@@ -1,4 +1,5 @@
 import 'package:comp5450_exercise1/ui/core/product_card_vertical.dart';
+import 'package:comp5450_exercise1/ui/core/product_cart_horizontal.dart';
 import 'package:comp5450_exercise1/ui/productDetail/product_detail_display.dart';
 import 'package:comp5450_exercise1/ui/productDetail/product_detail_view_model.dart';
 import 'package:comp5450_exercise1/ui/productList/product_list_view_model.dart';
@@ -28,11 +29,43 @@ class ProductListDisplay extends StatelessWidget{
 
     final int crossAxisCount = _getCrossAxisCount(context);
 
+    if (crossAxisCount == 1) {
+      return (
+        ListView.separated(
+          itemCount: viewModel.productList.length,
+          separatorBuilder: (context, index) => Divider(),
+          itemBuilder: (context, index) {
+            final item = viewModel.productList[index];
+            return(
+              Padding(
+                padding: EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
+                child: Row(
+                  children: [
+                    ProductCardHorizontal(item: item),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+                        child: MaterialButton(
+                        color: Colors.amber,
+                        child: Text("Add to Cart", style: TextStyle(fontSize: 14),),
+                        onPressed: (){print("add to cart");}
+                      ),
+                    )
+                  ] 
+                ),
+              )
+              
+            );
+          }
+        )
+      );
+    }
+
     return(GridView.count(
       crossAxisCount: crossAxisCount,
       padding: EdgeInsets.all(16),
       mainAxisSpacing: 16,
       crossAxisSpacing: 16,
+      // childAspectRatio: 0.5,
       children: viewModel.productList.map((item) {
         return (
           GestureDetector(
