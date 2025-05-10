@@ -13,12 +13,13 @@ class ShoppingCartRepository{
   final ShoppingCartService _shoppingCartService;
 
   final ValueNotifier<int> cartCount = ValueNotifier(0);
-  ShoppingCartModel shoppingCartModel = ShoppingCartModel(List.empty(), 0);
+  final ValueNotifier<ShoppingCartModel> shoppingCartContent = ValueNotifier(ShoppingCartModel(List.empty(), 0));
 
   void addProductToCart(int productNumber) {
+    ShoppingCartModel currentCart = shoppingCartContent.value;
     List<ShoppingCartProductModel> newProductList = List.empty(growable: true);
-    newProductList.addAll(shoppingCartModel.productList);
-    ShoppingCartModel newModel = ShoppingCartModel(newProductList, shoppingCartModel.totalMinor);
+    newProductList.addAll(currentCart.productList);
+    ShoppingCartModel newModel = ShoppingCartModel(newProductList, currentCart.totalMinor);
     // Check if item is in cart, in cart, multiply
     ShoppingCartProductModel? itemFound = newProductList.firstWhereOrNull((model) => model.product.id == productNumber);
     if (itemFound == null) {
@@ -32,8 +33,8 @@ class ShoppingCartRepository{
     itemFound.qty++;
     itemFound.subtotalMinor += itemFound.product.priceMinor;
     newModel.totalMinor += itemFound.product.priceMinor;
-    shoppingCartModel = newModel;
-    cartCount.value = newModel.productList.length;
+    shoppingCartContent.value = newModel;
+    _updateQty();
   }
 
   void changeProductQty(int productNumber, int qty) {
@@ -42,5 +43,9 @@ class ShoppingCartRepository{
 
   void removeProductFromCart(int productNumber) {
 
+  }
+
+  void _updateQty() {
+    cartCount.value = shoppingCartContent.value.productList.fold<int>(0, (total, item) => total + item.qty);
   }
 }

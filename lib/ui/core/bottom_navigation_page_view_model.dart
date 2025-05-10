@@ -26,12 +26,18 @@ class BottomNavigationPageViewModel extends ChangeNotifier{
   }
 
   void _buildNavBarItemModels() {
+    String finalCountLabel = _shoppingCartItemCount.toString();
+    if (_shoppingCartItemCount == 0){
+      finalCountLabel = '';
+    } else if (_shoppingCartItemCount >= 10) {
+      finalCountLabel = '9+';
+    }
     _navBarItems = [
       BottomNavigationBarItemModel(icon: Icons.store, label: 'Store', navigationKey: 'store'),
       BottomNavigationBarItemModel(
         icon: Icons.shopping_cart,
         label: 'Cart',
-        badgeLabel: _shoppingCartItemCount == 0 ? '' : _shoppingCartItemCount.toString(),
+        badgeLabel: finalCountLabel,
         displayBadgeLabel: _shoppingCartItemCount != 0,
         navigationKey: 'cart'  
       )
