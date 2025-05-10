@@ -53,44 +53,6 @@ class ProductCardHorizontal extends StatelessWidget{
           ] 
         )
       )
-      
-    );
-    
-  }
-  
+    ); 
+  } 
 }
-
-// Expanded(
-//   flex: 1,
-//   child: Image(
-//     image: AssetImage('assets/images/${_product.productImagePath}'),
-//     fit: BoxFit.contain
-//   ),
-// ),
-// Expanded(
-//   child: Column(
-//     crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text(
-//           _product.productDisplayName,
-//           style: TextStyle(
-//             fontSize: 16,
-//             fontWeight: FontWeight.bold
-//           ),
-//           maxLines: 2,
-//         ),
-//       Row(
-//         children: [
-//           Text(
-//             "\$${_product.priceMinor/100}",
-//             style: TextStyle(
-//               fontSize: 18,
-//               fontWeight: FontWeight.bold
-//             ),
-//             textAlign: TextAlign.start,
-//           )
-//         ],
-//       ),
-//     ],
-//   )
-// ),

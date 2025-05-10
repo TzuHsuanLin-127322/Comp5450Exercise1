@@ -24,7 +24,10 @@ void main() {
         Provider(create: (context) => ProductListRepository(productListService: context.read())),
         // ViewModel
         ChangeNotifierProvider(create: (context) => BottomNavigationPageViewModel(shoppingCartRepository: context.read())),
-        ChangeNotifierProvider(create: (context) => ProductListViewModel(productListRepository: context.read())),
+        ChangeNotifierProvider(create: (context) => ProductListViewModel(
+          productListRepository: context.read(),
+          shoppingCartRepository: context.read()
+        )),
         ChangeNotifierProvider(create: (context) => ShoppingCartViewModel(shoppingCartRepository: context.read()))
       ],
       child: MyApp()

@@ -1,5 +1,9 @@
+import 'package:collection/collection.dart';
+import 'package:comp5450_exercise1/data/models/product_model.dart';
 import 'package:comp5450_exercise1/data/models/shopping_cart_model.dart';
+import 'package:comp5450_exercise1/data/models/shopping_cart_product_model.dart';
 import 'package:comp5450_exercise1/data/services/shopping_cart_service.dart';
+import 'package:comp5450_exercise1/dummyData/dummy_data.dart';
 import 'package:flutter/widgets.dart';
 
 class ShoppingCartRepository{
@@ -7,6 +11,36 @@ class ShoppingCartRepository{
   // Inject Shopping cart service
   ShoppingCartRepository({required ShoppingCartService shoppingCartService}): _shoppingCartService = shoppingCartService;
   final ShoppingCartService _shoppingCartService;
+
   final ValueNotifier<int> cartCount = ValueNotifier(0);
-  ShoppingCartModel? shoppingCartModel;  
+  ShoppingCartModel shoppingCartModel = ShoppingCartModel(List.empty(), 0);
+
+  void addProductToCart(int productNumber) {
+    List<ShoppingCartProductModel> newProductList = List.empty(growable: true);
+    newProductList.addAll(shoppingCartModel.productList);
+    ShoppingCartModel newModel = ShoppingCartModel(newProductList, shoppingCartModel.totalMinor);
+    // Check if item is in cart, in cart, multiply
+    ShoppingCartProductModel? itemFound = newProductList.firstWhereOrNull((model) => model.product.id == productNumber);
+    if (itemFound == null) {
+      ProductModel? item = dummyData[productNumber];
+      if (item == null) {
+        throw ErrorDescription('item for shoppingcart not found');
+      }
+      itemFound = ShoppingCartProductModel(item, 0, 0);
+      newProductList.add(itemFound);
+    }
+    itemFound.qty++;
+    itemFound.subtotalMinor += itemFound.product.priceMinor;
+    newModel.totalMinor += itemFound.product.priceMinor;
+    shoppingCartModel = newModel;
+    cartCount.value = newModel.productList.length;
+  }
+
+  void changeProductQty(int productNumber, int qty) {
+
+  }
+
+  void removeProductFromCart(int productNumber) {
+
+  }
 }

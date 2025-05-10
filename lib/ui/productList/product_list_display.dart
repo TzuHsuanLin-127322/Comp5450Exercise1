@@ -26,9 +26,16 @@ class ProductListDisplay extends StatelessWidget{
         child: Text("No items available")
       ));
     }
+    return (
+      Scaffold(
+        body:  _createProductListView(context, viewModel),
+      )
+    );
+  }
 
+  BoxScrollView _createProductListView(BuildContext context, ProductListViewModel viewModel) {
     final int crossAxisCount = _getCrossAxisCount(context);
-
+    
     if (crossAxisCount == 1) {
       return (
         ListView.separated(
@@ -49,7 +56,7 @@ class ProductListDisplay extends StatelessWidget{
                           child: MaterialButton(
                           color: Colors.amber,
                           child: Text("Add to Cart", style: TextStyle(fontSize: 14),),
-                          onPressed: (){print("add to cart");}
+                          onPressed: () => viewModel.onProductAddToCartClick(item.id)
                         ),
                       )
                     ] 
@@ -61,7 +68,7 @@ class ProductListDisplay extends StatelessWidget{
         )
       );
     }
-
+    
     return(GridView.count(
       crossAxisCount: crossAxisCount,
       padding: EdgeInsets.all(16),
@@ -83,7 +90,7 @@ class ProductListDisplay extends StatelessWidget{
                     MaterialButton(
                       color: Colors.amber,
                       child: Text("Add to Cart", style: TextStyle(fontSize: 16),),
-                      onPressed: (){print("add to cart");}
+                      onPressed: () => viewModel.onProductAddToCartClick(item.id)
                     )
                   ]
                 ),

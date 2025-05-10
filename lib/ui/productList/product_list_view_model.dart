@@ -1,16 +1,21 @@
 import 'package:comp5450_exercise1/data/models/product_model.dart';
 import 'package:comp5450_exercise1/data/repositories/product_list_repository.dart';
+import 'package:comp5450_exercise1/data/repositories/shopping_cart_repository.dart';
 import 'package:flutter/material.dart';
 
 class ProductListViewModel extends ChangeNotifier{
   // TODO: Complete Product List View Model
   // Inject repository
-  ProductListViewModel({required ProductListRepository productListRepository})
-    : _productListRepository = productListRepository {
-      initializeProductList();
-    }
-  final ProductListRepository _productListRepository;
+  ProductListViewModel({
+    required ProductListRepository productListRepository,
+    required ShoppingCartRepository shoppingCartRepository
+  }) : _productListRepository = productListRepository,
+       _shoppingCartRepository = shoppingCartRepository {
+    initializeProductList();
+  }
 
+  final ProductListRepository _productListRepository;
+  final ShoppingCartRepository _shoppingCartRepository;
   final List<ProductModel> _productList = [];
 
   void initializeProductList() {
@@ -21,11 +26,7 @@ class ProductListViewModel extends ChangeNotifier{
   }
 
   void onProductAddToCartClick(int productNumber) {
-    // Adds product to cart, display snackbar depending on result
-  }
-
-  void onProductClick(int productNumber) {
-    // Navigate 
+    _shoppingCartRepository.addProductToCart(productNumber);
   }
 
   List<ProductModel> get productList => _productList;
