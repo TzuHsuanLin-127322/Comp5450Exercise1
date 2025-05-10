@@ -3,18 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailDisplay extends StatelessWidget{
-  // TODO: Complete Product Detail Dispaly
-  ProductDetailDisplay({super.key});
-
-  /**
-   * Displays:
-   * - Product Image
-   * - Item Name
-   * - Price
-   * - Lower Bar: Add to cart
-   */
-  
-
+  const ProductDetailDisplay({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,18 +22,63 @@ class ProductDetailDisplay extends StatelessWidget{
           title: Text("Product Detail")
         ),
         bottomSheet: MaterialButton(
-          child: Text('Add to Cart'),
+          color: Colors.orange,
+          child: Row(
+            children: [
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.shopping_cart, color: Colors.white,),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(16,8,16,8),
+                      child: Text(
+                        'Add to Cart',
+                        style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)
+                      ),
+                    )
+                  ],
+                )
+              )
+            ],
+          ),
           onPressed: () => {}
         ),
-        body: Column(
-          children: [
-            Image(image: AssetImage('assets/images/${viewModel.productModel!.productImagePath}')),
-            Text(viewModel.productModel!.productDisplayName),
-            Text('\$${viewModel.productModel!.priceMinor/100}'),
-            Text(viewModel.productModel!.productDescription)
-          ],
-        )
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AspectRatio(
+                  aspectRatio: 1.33,
+                  child: Image(image: AssetImage('assets/images/${viewModel.productModel!.productImagePath}'))
+                ),
+                SizedBox(height:16),
+                Text(
+                  viewModel.productModel!.productDisplayName,
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height:8),
+                Text(
+                  '\$${viewModel.productModel!.priceMinor/100}',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height:8),
+                Text(
+                  viewModel.productModel!.productDescription,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 36,)
+              ],
+            ),
+          ),
+        ) 
       )
     );
+  }
+
+  void onAddToCartClick(int itemId) {
+    // TODO Implement on add to cart click
   }
 }

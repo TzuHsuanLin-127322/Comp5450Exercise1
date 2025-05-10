@@ -37,23 +37,25 @@ class ProductListDisplay extends StatelessWidget{
           itemBuilder: (context, index) {
             final item = viewModel.productList[index];
             return(
-              Padding(
-                padding: EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
-                child: Row(
-                  children: [
-                    ProductCardHorizontal(item: item),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-                        child: MaterialButton(
-                        color: Colors.amber,
-                        child: Text("Add to Cart", style: TextStyle(fontSize: 14),),
-                        onPressed: (){print("add to cart");}
-                      ),
-                    )
-                  ] 
+              GestureDetector(
+                onTap: () => _onProductClick(context, item.id),
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
+                  child: Row(
+                    children: [
+                      ProductCardHorizontal(item: item),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+                          child: MaterialButton(
+                          color: Colors.amber,
+                          child: Text("Add to Cart", style: TextStyle(fontSize: 14),),
+                          onPressed: (){print("add to cart");}
+                        ),
+                      )
+                    ] 
+                  ),
                 ),
               )
-              
             );
           }
         )
