@@ -1,4 +1,5 @@
 import 'package:comp5450_exercise1/ui/productDetail/product_detail_view_model.dart';
+import 'package:comp5450_exercise1/util/string_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -61,7 +62,7 @@ class ProductDetailDisplay extends StatelessWidget{
                 ),
                 SizedBox(height:8),
                 Text(
-                  '\$${viewModel.productModel!.priceMinor/100}',
+                  formatMoney(viewModel.productModel!.priceMinor),
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height:8),

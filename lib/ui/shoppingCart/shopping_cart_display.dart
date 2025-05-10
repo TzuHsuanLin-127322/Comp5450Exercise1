@@ -1,5 +1,6 @@
 import 'package:comp5450_exercise1/ui/core/product_cart_horizontal.dart';
 import 'package:comp5450_exercise1/ui/shoppingCart/shopping_cart_view_model.dart';
+import 'package:comp5450_exercise1/util/string_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -88,8 +89,9 @@ class ShoppingCartDisplay extends StatelessWidget{
                                       ),
                                     ]
                                   ),
+                                  SizedBox(height: 16),
                                   Text(
-                                    'Subtotal: \$${item.subtotalMinor/100}',
+                                    'Subtotal: ${formatMoney(item.subtotalMinor)}',
                                     style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20)
                                   )
                                 ],
@@ -116,7 +118,7 @@ class ShoppingCartDisplay extends StatelessWidget{
                       Padding(
                         padding: EdgeInsets.fromLTRB(16,8,16,8),
                         child: Text(
-                          'Checkout \$${viewModel.shoppingCartContent!.totalMinor/100}',
+                          'Checkout ${formatMoney(viewModel.shoppingCartContent!.totalMinor)}',
                           style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)
                         ),
                       )

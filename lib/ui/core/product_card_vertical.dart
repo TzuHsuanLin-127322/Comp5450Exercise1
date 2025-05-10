@@ -1,4 +1,5 @@
 import 'package:comp5450_exercise1/data/models/product_model.dart';
+import 'package:comp5450_exercise1/util/string_formatter.dart';
 import 'package:flutter/material.dart';
 
 class ProductCardVertical extends StatelessWidget{
@@ -34,7 +35,7 @@ class ProductCardVertical extends StatelessWidget{
                 Row(
                   children: [
                     Text(
-                      "\$${_product.priceMinor/100}",
+                      formatMoney(_product.priceMinor),
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold

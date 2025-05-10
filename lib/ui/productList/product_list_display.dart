@@ -7,15 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProductListDisplay extends StatelessWidget{
-
-    // TODO: Complete Product List Display
-  // Inject view model
   ProductListDisplay({super.key});
-  /**
-   * Displays:
-   * Item List -> Grid of item cards
-   * Bottom Bar: navigation -> Product List and target
-   */
 
   @override
   Widget build(BuildContext context) {
