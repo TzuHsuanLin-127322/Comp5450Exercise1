@@ -1,12 +1,14 @@
 import 'package:comp5450_exercise1/data/models/shopping_cart_product_model.dart';
 import 'package:comp5450_exercise1/data/repositories/shopping_cart_repository.dart';
+import 'package:flutter/material.dart';
 
-class ShoppingCartViewModel {
+class ShoppingCartViewModel extends ChangeNotifier{
   // TODO: Complete Shopping Cart model
   ShoppingCartViewModel({required ShoppingCartRepository shoppingCartRepository}): _shoppingCartRepository = shoppingCartRepository;
   final ShoppingCartRepository _shoppingCartRepository;
 
-  List<ShoppingCartProductModel> _shoppingCartProductModel = List.empty();
+  List<ShoppingCartProductModel> _shoppingCartContent = List.empty();
+
   String _finalPrice = "0.00";
   
   // Inject Repository
@@ -19,4 +21,6 @@ class ShoppingCartViewModel {
    * - On Checkout click
    * - Go shop button (when shopping cart is empty)
    */
+
+  List<ShoppingCartProductModel> get shoppingCartContent => _shoppingCartContent;
 }

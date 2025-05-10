@@ -7,6 +7,7 @@ import 'package:comp5450_exercise1/data/services/shopping_cart_service.dart';
 import 'package:comp5450_exercise1/ui/core/bottom_navigation_page_display.dart';
 import 'package:comp5450_exercise1/ui/core/bottom_navigation_page_view_model.dart';
 import 'package:comp5450_exercise1/ui/productList/product_list_view_model.dart';
+import 'package:comp5450_exercise1/ui/shoppingCart/shopping_cart_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +24,8 @@ void main() {
         Provider(create: (context) => ProductListRepository(productListService: context.read())),
         // ViewModel
         ChangeNotifierProvider(create: (context) => BottomNavigationPageViewModel(shoppingCartRepository: context.read())),
-        ChangeNotifierProvider(create: (context) => ProductListViewModel(productListRepository: context.read()))
+        ChangeNotifierProvider(create: (context) => ProductListViewModel(productListRepository: context.read())),
+        ChangeNotifierProvider(create: (context) => ShoppingCartViewModel(shoppingCartRepository: context.read()))
       ],
       child: MyApp()
   ));
