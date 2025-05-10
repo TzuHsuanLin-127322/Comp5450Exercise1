@@ -114,6 +114,7 @@ class ProductListDisplay extends StatelessWidget{
       MaterialPageRoute(builder: (_) => ChangeNotifierProvider(
         create: (_) => ProductDetailViewModel(
           productDetailRepository: context.read(),
+          shoppingCartRepository: context.read(),
           productId: productId
         ),
         child: ProductDetailDisplay()

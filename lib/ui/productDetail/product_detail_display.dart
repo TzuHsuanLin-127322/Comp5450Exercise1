@@ -42,7 +42,7 @@ class ProductDetailDisplay extends StatelessWidget{
               )
             ],
           ),
-          onPressed: () => {}
+          onPressed: () => viewModel.onAddToCartClick()
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -76,9 +76,5 @@ class ProductDetailDisplay extends StatelessWidget{
         ) 
       )
     );
-  }
-
-  void onAddToCartClick(int itemId) {
-    // TODO Implement on add to cart click
   }
 }
