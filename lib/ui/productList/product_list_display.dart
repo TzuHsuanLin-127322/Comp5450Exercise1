@@ -7,21 +7,26 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProductListDisplay extends StatelessWidget{
-  ProductListDisplay({super.key});
+  const ProductListDisplay({super.key});
 
   @override
   Widget build(BuildContext context) {
     final ProductListViewModel viewModel = context.watch();
 
-    if(viewModel.productList.isEmpty) {
-      return (Center(
-        child: Text("No items available")
-      ));
-    }
+    Widget content = viewModel.productList.isEmpty ? makeEmptyView() : _createProductListView(context, viewModel);
     return (
       Scaffold(
-        body:  _createProductListView(context, viewModel),
+        appBar: AppBar(
+          title: Text("Product List")
+        ),
+        body: content,
       )
+    );
+  }
+
+  Center makeEmptyView() {
+    return Center(
+      child: Text("No items available")
     );
   }
 

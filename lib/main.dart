@@ -1,9 +1,6 @@
 import 'package:comp5450_exercise1/data/repositories/product_detail_repository.dart';
 import 'package:comp5450_exercise1/data/repositories/product_list_repository.dart';
 import 'package:comp5450_exercise1/data/repositories/shopping_cart_repository.dart';
-import 'package:comp5450_exercise1/data/services/product_detail_service.dart';
-import 'package:comp5450_exercise1/data/services/product_list_service.dart';
-import 'package:comp5450_exercise1/data/services/shopping_cart_service.dart';
 import 'package:comp5450_exercise1/ui/core/bottom_navigation_page_display.dart';
 import 'package:comp5450_exercise1/ui/core/bottom_navigation_page_view_model.dart';
 import 'package:comp5450_exercise1/ui/productList/product_list_view_model.dart';
@@ -15,13 +12,11 @@ void main() {
   runApp(MultiProvider(
       providers: [
         // Services
-        Provider.value(value: ProductDetailService()),
-        Provider.value(value: ProductListService()),
-        Provider.value(value: ShoppingCartService()), 
+ 
         // Repository
-        Provider(create: (context) => ShoppingCartRepository(shoppingCartService: context.read())),
-        Provider(create: (context) => ProductDetailRepository(productDetailService: context.read())),
-        Provider(create: (context) => ProductListRepository(productListService: context.read())),
+        Provider(create: (context) => ShoppingCartRepository()),
+        Provider(create: (context) => ProductDetailRepository()),
+        Provider(create: (context) => ProductListRepository()),
         // ViewModel
         ChangeNotifierProvider(create: (context) => BottomNavigationPageViewModel(shoppingCartRepository: context.read())),
         ChangeNotifierProvider(create: (context) => ProductListViewModel(

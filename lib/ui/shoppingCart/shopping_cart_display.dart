@@ -5,34 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ShoppingCartDisplay extends StatelessWidget{
-  //TODO: Complete shopping cart display
-  // Inject the view model
+
   const ShoppingCartDisplay({super.key});
-  /**
-   * Displays
-   * 1. Items
-   *  Product Image
-   *  Product name
-   *  QTY - Increase and Decrease
-   *  Subtotal
-   * 2. Total
-   * 3. Checkout button
-   */
 
   @override
   Widget build(BuildContext context) {
     final ShoppingCartViewModel viewModel = context.watch();
-    
-    if (viewModel.shoppingCartContent?.productList == null || viewModel.shoppingCartContent!.productList.isEmpty) {
-      return (
-        Center(
-          child: Text('Cart Empty', style: TextStyle(fontSize: 24))
-        )
-      );
-    }
-
+    Widget content = (viewModel.shoppingCartContent?.productList == null || viewModel.shoppingCartContent!.productList.isEmpty)
+      ? makeEmptyView() : makeCartView(viewModel);
     return(
-      Column(
+      Scaffold(
+        appBar: AppBar(
+          title: Text("Shopping Cart")
+        ),
+        body: content
+      )
+    );
+  }
+
+  Column makeCartView(ShoppingCartViewModel viewModel) {
+    return Column(
         children: [
           Expanded(
             flex: 1,
@@ -131,7 +123,12 @@ class ShoppingCartDisplay extends StatelessWidget{
             onPressed: () => {}
           ),
         ],
-      )
-    );
+      );
+  }
+
+  Center makeEmptyView() {
+    return Center(
+        child: Text('Cart Empty', style: TextStyle(fontSize: 24))
+      );
   }
 }

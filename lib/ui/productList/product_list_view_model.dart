@@ -4,7 +4,6 @@ import 'package:comp5450_exercise1/data/repositories/shopping_cart_repository.da
 import 'package:flutter/material.dart';
 
 class ProductListViewModel extends ChangeNotifier{
-  // TODO: Complete Product List View Model
   // Inject repository
   ProductListViewModel({
     required ProductListRepository productListRepository,
