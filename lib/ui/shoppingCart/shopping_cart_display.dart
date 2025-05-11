@@ -1,4 +1,6 @@
 import 'package:comp5450_exercise1/ui/core/product_cart_horizontal.dart';
+import 'package:comp5450_exercise1/ui/productDetail/product_detail_display.dart';
+import 'package:comp5450_exercise1/ui/productDetail/product_detail_view_model.dart';
 import 'package:comp5450_exercise1/ui/shoppingCart/shopping_cart_view_model.dart';
 import 'package:comp5450_exercise1/util/string_formatter.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +45,10 @@ class ShoppingCartDisplay extends StatelessWidget{
                         children: [
                           Expanded(
                             flex:3,
-                            child: Row(children: [ProductCardHorizontal(item: item.product)])
+                            child: GestureDetector(
+                              onTap: () => _navigateToProductDetail(context, item.product.id),
+                              child: Row(children: [ProductCardHorizontal(item: item.product)])
+                            ) 
                           ),
                           Expanded(
                             flex: 2,
@@ -130,5 +135,19 @@ class ShoppingCartDisplay extends StatelessWidget{
     return Center(
         child: Text('Cart Empty', style: TextStyle(fontSize: 24))
       );
+  }
+  
+  void _navigateToProductDetail(BuildContext context, int id) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => ChangeNotifierProvider(
+        create: (_) => ProductDetailViewModel(
+          productDetailRepository: context.read(),
+          shoppingCartRepository: context.read(),
+          productId: id
+        ),
+        child: ProductDetailDisplay()
+      ))
+    );
   }
 }
