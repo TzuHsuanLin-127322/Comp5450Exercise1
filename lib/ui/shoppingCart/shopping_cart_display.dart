@@ -58,28 +58,30 @@ class ShoppingCartDisplay extends StatelessWidget{
                                   Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      SizedBox(width: 8),
                                       GestureDetector(
                                         onTap: () => viewModel.onRemoveItemClick(index),
                                         child: Icon(Icons.delete)
                                       ),
-                                      SizedBox(width: 8,),
                                       Container(
-                                        padding: EdgeInsetsDirectional.symmetric(horizontal: 8),
+                                        padding: EdgeInsets.zero,
                                         decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(20)),
                                         child: Row(
                                           children: [
                                             IconButton(
                                               icon: Icon(Icons.remove),
-                                              onPressed: () => viewModel.onMinusItemClick(index)
+                                              onPressed: () => viewModel.onMinusItemClick(index),
+                                              padding: EdgeInsets.zero,
+                                              iconSize: 16
                                             ),
                                             SizedBox(
-                                              width: 30,
+                                              width: 20,
                                               child: Center(child: Text('${item.qty}')),
                                             ),
                                             IconButton(
                                               icon: Icon(Icons.add),
-                                              onPressed: () => viewModel.onAddItemClick(index)
+                                              onPressed: () => viewModel.onAddItemClick(index),
+                                              padding: EdgeInsets.zero,
+                                              iconSize: 16
                                             ),
                                             
                                           ]
